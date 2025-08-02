@@ -42,6 +42,21 @@ services:
     networks:
       - app-network
 
+
+  scrapper_bot:
+    build:
+      context: ./scrapper_bot
+    container_name: scrapper_bot
+    volumes:
+      - ./scrapper_bot:/app
+    depends_on:
+      - nginx
+    environment:
+      - FLASK_SERVER_URL=http://laravel_nginx/store-job-data
+    networks:
+      - app-network 
+
+
   nginx:
     image: nginx:alpine
     container_name: laravel_nginx
